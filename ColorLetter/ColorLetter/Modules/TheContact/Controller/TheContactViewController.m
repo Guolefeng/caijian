@@ -62,7 +62,6 @@ FZY_CreateGroupViewControllerDelegate
 @property (nonatomic, assign) BOOL isHidden;
 @property (nonatomic, strong) NSArray *objectArray;
 
-
 @end
 
 @implementation TheContactViewController

@@ -20,6 +20,11 @@ UITableViewDataSource
 
 @implementation FZY_ChatterInfoViewController
 
+- (void)dealloc {
+    _tableViwe.delegate = nil;
+    _tableViwe.dataSource = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;

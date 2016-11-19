@@ -825,27 +825,6 @@
 			path = VoiceLib;
 			sourceTree = "<group>";
 		};
-		4969E13F1DB85849007D0A06 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		4969E1401DB8584B007D0A06 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		4969E1411DB8584D007D0A06 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		4969E1441DB85C9B007D0A06 /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -1179,32 +1158,13 @@
 				4907FF961DD4944F0026E95A /* KSGuidViewController */,
 				49E640201DC0484600149AF1 /* FriendRequests */,
 				4969E1801DB8A8FD007D0A06 /* Drawer */,
-				49B0329A1DB79D3E00D36732 /* Home */,
 				4975B1D31DBDBF3800B6987D /* LoginAndRegister */,
 				4969E1441DB85C9B007D0A06 /* Message */,
 				492AEE6D1DB9B0280014E9BB /* Setting */,
 				4969E14E1DB85E9C007D0A06 /* TabBar */,
 				491656AD1DBA576500975DE6 /* TheContact */,
-				49B0329C1DB79D7800D36732 /* User */,
 			);
 			path = Modules;
-			sourceTree = "<group>";
-		};
-		49B0329A1DB79D3E00D36732 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				4969E13F1DB85849007D0A06 /* Controller */,
-				4969E1411DB8584D007D0A06 /* Model */,
-				4969E1401DB8584B007D0A06 /* View */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		49B0329C1DB79D7800D36732 /* User */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = User;
 			sourceTree = "<group>";
 		};
 		49BC0A2E1DC5F5D00094EFE8 /* VideoChat */ = {

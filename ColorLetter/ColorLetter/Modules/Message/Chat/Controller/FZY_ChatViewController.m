@@ -69,10 +69,22 @@ BMKMapViewDelegate
 
 @property (nonatomic, copy) NSString *friendImage;
 
-
 @end
 
 @implementation FZY_ChatViewController
+
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _importTextField.delegate = nil;
+    _mapView.delegate = nil;
+    MP3.delegate = nil;
+    _optionsCollectionView.delegate = nil;
+    _optionsCollectionView.dataSource = nil;
+    //移除消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+}
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -792,7 +804,6 @@ BMKMapViewDelegate
             //页面跳转
             [self presentViewController:PickerImage animated:YES completion:nil];
             
-            
         }
             break;
         case 1:
@@ -900,6 +911,10 @@ BMKMapViewDelegate
     
     // 发送消息
     [self sendMessageWithEMMessage:message];
+    
+    // 添加 键盘弹出 通知中心
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
     
 }
 

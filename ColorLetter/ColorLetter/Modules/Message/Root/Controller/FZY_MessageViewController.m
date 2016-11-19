@@ -36,6 +36,14 @@ FZYBaseViewControllerDelegate
 
 @implementation FZY_MessageViewController
 
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    //移除消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+    
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
      [super viewWillDisappear:animated];
     [[EMClient sharedClient].chatManager removeDelegate:self];
@@ -96,7 +104,6 @@ FZYBaseViewControllerDelegate
         FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
         if (con.type == EMConversationTypeChat) {
             model.name = con.conversationId;
-            NSLog(@"%@", con.conversationId);
             
             model.isGroup = NO;
         } else{

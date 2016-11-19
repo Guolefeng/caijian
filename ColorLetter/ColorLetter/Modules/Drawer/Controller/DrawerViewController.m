@@ -44,6 +44,12 @@ UINavigationControllerDelegate
 
 @implementation DrawerViewController
 
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
    // [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
