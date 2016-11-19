@@ -1,0 +1,43 @@
+PODS:
+  - AVOSCloud (3.6.1)
+  - BaiduMapKit (3.1.0)
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - HexColors (2.2.1)
+  - HyphenateFullSDK (3.1.5)
+  - Masonry (1.0.2)
+  - TSMessages (0.9.12):
+    - HexColors (~> 2.2.0)
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
+
+DEPENDENCIES:
+  - AVOSCloud (~> 3.6.1)
+  - BaiduMapKit
+  - FMDB (~> 2.6.2)
+  - HyphenateFullSDK (~> 3.1.5)
+  - Masonry (~> 1.0.2)
+  - TSMessages (~> 0.9.12)
+  - YYWebImage (~> 1.0.5)
+
+SPEC CHECKSUMS:
+  AVOSCloud: cc9b567da2d30f07e3da1e4db682cad9ff56a1b6
+  BaiduMapKit: 4cfaedb118cff7e157e9771859a4bf65a261b2a1
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  HyphenateFullSDK: 536f76eeb0914dba766b1d5d30dee083f0805da2
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
+
+PODFILE CHECKSUM: 4b19158c51cc1428eda1e4f8e1fca2afe89b07f8
+
+COCOAPODS: 1.0.1
