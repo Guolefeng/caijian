@@ -38,29 +38,27 @@
     // 保持原图不被渲染
     imageMessage = [imageMessage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     selectedImageMessage = [selectedImageMessage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    message.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Messages" image:imageMessage selectedImage:selectedImageMessage];
+    message.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"消息" image:imageMessage selectedImage:selectedImageMessage];
     UINavigationController *messageNav = [[UINavigationController alloc] initWithRootViewController:message];
     [messageNav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     TheContactViewController *theContact = [[TheContactViewController alloc] init];
-    theContact.title = @"The contact";
     UIImage *imageContact = [UIImage imageNamed:@"tab-home"];
     UIImage *selectedImageContact = [UIImage imageNamed:@"tab-home-on"];
     // 保持原图不被渲染
     imageContact = [imageContact imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     selectedImageContact = [selectedImageContact imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    theContact.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"The contact" image:imageContact selectedImage:selectedImageContact];
+    theContact.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"联系人" image:imageContact selectedImage:selectedImageContact];
     UINavigationController *theContactNav = [[UINavigationController alloc] initWithRootViewController:theContact];
     [theContactNav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     FZY_SettingViewController *add = [[FZY_SettingViewController alloc] init];
-    add.title = @"Setting";
     UIImage *imageAdd = [UIImage imageNamed:@"setting1"];
     UIImage *selectedImageAdd = [UIImage imageNamed:@"setting2"];
     // 保持原图不被渲染
     imageAdd = [imageAdd imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     selectedImageAdd = [selectedImageAdd imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    add.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Setting" image:imageAdd selectedImage:selectedImageAdd];
+    add.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:imageAdd selectedImage:selectedImageAdd];
     UINavigationController *addNav = [[UINavigationController alloc] initWithRootViewController:add];
     [addNav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     

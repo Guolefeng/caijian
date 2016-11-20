@@ -17,6 +17,7 @@
 		491424491DC6F69100EC39A5 /* FZY_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 491424481DC6F69100EC39A5 /* FZY_User.m */; };
 		4914244C1DC6F69F00EC39A5 /* FZY_DataHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */; };
 		491656AC1DBA56E100975DE6 /* FZY_SliderScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */; };
+		49279FCA1DE15FE10065ABCA /* FZY_MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49279FC91DE15FE10065ABCA /* FZY_MessageTableViewCell.m */; };
 		49291F551DE042850089861F /* FZY_FriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49291F541DE042850089861F /* FZY_FriendRequestViewController.m */; };
 		49291F581DE043F10089861F /* FZY_SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49291F571DE043F10089861F /* FZY_SettingViewController.m */; };
 		49291F5B1DE044270089861F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49291F5A1DE044270089861F /* AppDelegate.m */; };
@@ -44,7 +45,6 @@
 		4969E1891DB8AF78007D0A06 /* DrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E1881DB8AF78007D0A06 /* DrawerTableViewCell.m */; };
 		496BFAFF1DD1EA2200C8238A /* YZYNetWorkingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 496BFAFE1DD1EA2200C8238A /* YZYNetWorkingManager.m */; };
 		4975B1C21DBD9B9A00B6987D /* FZY_BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */; };
-		4975B1C51DBD9BB500B6987D /* FZY_MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1C41DBD9BB500B6987D /* FZY_MessageTableViewCell.m */; };
 		4975B1E11DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1DE1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m */; };
 		4975B2131DBDEB5900B6987D /* FZYBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2121DBDEB5900B6987D /* FZYBaseViewController.m */; };
 		4975B2161DBDF17000B6987D /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2151DBDF17000B6987D /* DrawerViewController.m */; };
@@ -233,6 +233,8 @@
 		4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_DataHandle.m; sourceTree = "<group>"; };
 		491656AA1DBA56E100975DE6 /* FZY_SliderScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_SliderScrollView.h; sourceTree = "<group>"; };
 		491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_SliderScrollView.m; sourceTree = "<group>"; };
+		49279FC81DE15FE10065ABCA /* FZY_MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_MessageTableViewCell.h; sourceTree = "<group>"; };
+		49279FC91DE15FE10065ABCA /* FZY_MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_MessageTableViewCell.m; sourceTree = "<group>"; };
 		49291F531DE042850089861F /* FZY_FriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendRequestViewController.h; sourceTree = "<group>"; };
 		49291F541DE042850089861F /* FZY_FriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendRequestViewController.m; sourceTree = "<group>"; };
 		49291F561DE043F10089861F /* FZY_SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_SettingViewController.h; sourceTree = "<group>"; };
@@ -285,8 +287,6 @@
 		496BFAFE1DD1EA2200C8238A /* YZYNetWorkingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYNetWorkingManager.m; sourceTree = "<group>"; };
 		4975B1C01DBD9B9A00B6987D /* FZY_BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_BaseTableViewCell.h; sourceTree = "<group>"; };
 		4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_BaseTableViewCell.m; sourceTree = "<group>"; };
-		4975B1C31DBD9BB500B6987D /* FZY_MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_MessageTableViewCell.h; sourceTree = "<group>"; };
-		4975B1C41DBD9BB500B6987D /* FZY_MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_MessageTableViewCell.m; sourceTree = "<group>"; };
 		4975B1DD1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_LoginAndRegisterViewController.h; sourceTree = "<group>"; };
 		4975B1DE1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_LoginAndRegisterViewController.m; sourceTree = "<group>"; };
 		4975B2111DBDEB5900B6987D /* FZYBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZYBaseViewController.h; sourceTree = "<group>"; };
@@ -897,8 +897,8 @@
 		4975B1BA1DBD9A7D00B6987D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4975B1C31DBD9BB500B6987D /* FZY_MessageTableViewCell.h */,
-				4975B1C41DBD9BB500B6987D /* FZY_MessageTableViewCell.m */,
+				49279FC81DE15FE10065ABCA /* FZY_MessageTableViewCell.h */,
+				49279FC91DE15FE10065ABCA /* FZY_MessageTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2103,7 +2103,6 @@
 				49CE089B1DC0C1F70022B6B8 /* EaseUsersListViewController.m in Sources */,
 				49CE084F1DC0C1F70022B6B8 /* MJRefreshFooter.m in Sources */,
 				49CE085C1DC0C1F70022B6B8 /* UIScrollView+MJExtension.m in Sources */,
-				4975B1C51DBD9BB500B6987D /* FZY_MessageTableViewCell.m in Sources */,
 				49CE08931DC0C1F70022B6B8 /* EaseEmojiEmoticons.m in Sources */,
 				49CE085E1DC0C1F70022B6B8 /* UIView+MJExtension.m in Sources */,
 				49CE089D1DC0C1F70022B6B8 /* EaseUserCell.m in Sources */,
@@ -2180,6 +2179,7 @@
 				49CE089A1DC0C1F70022B6B8 /* EaseRefreshTableViewController.m in Sources */,
 				49CEFED41DC0519F0022B6B8 /* FZY_FriendsModel.m in Sources */,
 				49CE08961DC0C1F70022B6B8 /* FixFopen.c in Sources */,
+				49279FCA1DE15FE10065ABCA /* FZY_MessageTableViewCell.m in Sources */,
 				495CD6451DCA11E100E4F9A4 /* UUInputFunctionView.m in Sources */,
 				4969E1891DB8AF78007D0A06 /* DrawerTableViewCell.m in Sources */,
 				49F1372A1DD03273005F3733 /* FZY_MessageViewController.m in Sources */,
@@ -2319,7 +2319,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ColorLetter/ColorLetter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Lefeng Guo (QWKQAE7W9B)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = QWKQAE7W9B;
 				ENABLE_BITCODE = NO;
@@ -2348,7 +2348,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ColorLetter/ColorLetter.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Lefeng Guo (QWKQAE7W9B)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = QWKQAE7W9B;
 				ENABLE_BITCODE = NO;

@@ -20,9 +20,7 @@
     AVAudioPlayer *_ringPlayer;
     
     UIView *_topView;
-    UILabel *_nameLabel;
-    UIImageView *_headerImageView;
-    
+    UILabel *_nameLabel;    
     //操作按钮显示
     UIView *_actionView;
     UIButton *_silenceButton;

@@ -144,11 +144,6 @@
     _topView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_topView];
     
-    _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake((WIDTH - 50) / 2,  40, 50, 50)];
-    _headerImageView.backgroundColor = [UIColor redColor];
-    _headerImageView.image = [UIImage imageNamed:@"user"];
-    [_topView addSubview:_headerImageView];
-    
     _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90 + 5, WIDTH, 20)];
     _nameLabel.font = [UIFont systemFontOfSize:14.0];
     _nameLabel.backgroundColor = [UIColor clearColor];

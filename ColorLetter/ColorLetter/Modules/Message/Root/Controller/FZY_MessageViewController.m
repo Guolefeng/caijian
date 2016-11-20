@@ -30,7 +30,6 @@ FZYBaseViewControllerDelegate
 
 @property (nonatomic, strong) NSArray *objectArray;
 
-//@property (nonatomic, strong) FZY_User *user;
 
 @end
 
@@ -54,7 +53,8 @@ FZYBaseViewControllerDelegate
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     self.navigationController.navigationBar.hidden = YES;
     
-    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];    
+    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     // 载入所有会话
     [self loadAllConversations];
     
@@ -65,7 +65,7 @@ FZYBaseViewControllerDelegate
     // Do any additional setup after loading the view.
     self.objectArray = [NSMutableArray array];
 
-    self.title = @"Messages";
+    self.title = @"消息";
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     
     [self creatTableView];
@@ -76,12 +76,10 @@ FZYBaseViewControllerDelegate
     //启动LocationService
     [_locService startUserLocationService];
     
-    FZYBaseViewController *base = [[FZYBaseViewController alloc] init];
-    base.delegate = self;
 }
-- (void)refreshTableView {
+
+- (void)didReceiveMessages:(NSArray *)aMessages {
     [self loadAllConversations];
-    [_tableView reloadData];
 }
 
 //处理位置坐标更新
@@ -195,35 +193,30 @@ FZYBaseViewControllerDelegate
     if (model.isGroup) {
         chatVC.friendName = model.groupID;
         chatVC.isGroupChat = YES;
+        // 设置消息为已读
+        EMConversation *con = [[EMClient sharedClient].chatManager getConversation:model.groupID type:EMConversationTypeGroupChat createIfNotExist:YES];
+        if (con.unreadMessagesCount) {
+            EMError *err = nil;
+            [con markAllMessagesAsRead:&err];
+            // UI 去掉红点
+            FZY_MessageTableViewCell *cell = (FZY_MessageTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+            [cell displayNumberOfUnreadMessagesWith:NO];
+        }
+        
     } else {
         chatVC.friendName = model.name;
         chatVC.isGroupChat = NO;
+        // 设置消息为已读
+        EMConversation *con = [[EMClient sharedClient].chatManager getConversation:model.name type:EMConversationTypeChat createIfNotExist:YES];
+        if (con.unreadMessagesCount) {
+            EMError *err = nil;
+            [con markAllMessagesAsRead:&err];
+            // UI 去掉红点
+            FZY_MessageTableViewCell *cell = (FZY_MessageTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+            [cell displayNumberOfUnreadMessagesWith:NO];
+        }
+        
     }
-    // 设置消息为已读
-    EMConversation *con = [[EMClient sharedClient].chatManager getConversation:model.name type:EMConversationTypeChat createIfNotExist:YES];
-    if (con.unreadMessagesCount) {
-        EMError *err = nil;
-        [con markAllMessagesAsRead:&err];
-        // UI 去掉红点
-        FZY_MessageTableViewCell *cell = (FZY_MessageTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
-        [cell displayNumberOfUnreadMessagesWith:NO];
-    }
-    
-    
-//    EMLocationMessageBody *body = [[EMLocationMessageBody alloc] initWithLatitude:_latitude longitude:_longitude address:@"地址"];
-//    NSString *from = [[EMClient sharedClient] currentUsername];
-//    
-//    // 生成message
-//    EMMessage *message = [[EMMessage alloc] initWithConversationID:model.name from:from to:[[EMClient sharedClient] currentUsername] body:body ext:nil];
-//    message.chatType = EMChatTypeChat;// 设置为单聊消息
-//    [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-//        if (!error) {
-//            
-//            NSLog(@"位置发送成功"); 
-//        } else {
-//            NSLog(@"发送失败: %@", error);
-//        }
-//    }];
 
     [self.navigationController pushViewController:chatVC animated:YES];
 }

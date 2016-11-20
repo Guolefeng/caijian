@@ -65,7 +65,7 @@
     pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
     
     if(pixelBuffer == NULL)
-        NSLog(@"No pixelbuffer");
+//        NSLog(@"No pixelbuffer");
     
     outBuffer.data = pixelBuffer;
     outBuffer.width = CGImageGetWidth(img);
@@ -83,15 +83,15 @@
     //perform convolution
     error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer2, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
     if (error) {
-        NSLog(@"error from convolution %ld", error);
+//        NSLog(@"error from convolution %ld", error);
     }
     error = vImageBoxConvolve_ARGB8888(&outBuffer2, &inBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
     if (error) {
-        NSLog(@"error from convolution %ld", error);
+//        NSLog(@"error from convolution %ld", error);
     }
     error = vImageBoxConvolve_ARGB8888(&inBuffer, &outBuffer, NULL, 0, 0, boxSize, boxSize, NULL, kvImageEdgeExtend);
     if (error) {
-        NSLog(@"error from convolution %ld", error);
+//        NSLog(@"error from convolution %ld", error);
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -239,7 +239,7 @@ CGImageRef CopyImageAndAddAlphaChannel(CGImageRef sourceImage);
     
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     if (newImage == nil) {
-        NSLog(@"scale image fail");
+//        NSLog(@"scale image fail");
     }
     
     UIGraphicsEndImageContext();

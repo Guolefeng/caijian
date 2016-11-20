@@ -95,16 +95,8 @@ UINavigationControllerDelegate
 }
 
 - (void)reduction {
-    //    [UIView animateWithDuration:0.001 animations:^{
-    //        self.view.transform = CGAffineTransformMakeTranslation(-500, 0);
-    //    }];
-    //    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
-    CATransition * animation = [CATransition animation];
-    animation.duration = 0.5;
-//    animation.type = @"suckEffect";
-    animation.type = kCATransitionFromRight;
-     [self.view.window.layer addAnimation:animation forKey:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)swipeAction:(UISwipeGestureRecognizer *)swipe {
@@ -118,7 +110,7 @@ UINavigationControllerDelegate
 
 - (void)createArray {
     self.imageArray = @[@"groups", @"help", @"log Out"];
-    self.nameArray = @[@"Create Group", @"Help", @"Log Out"];
+    self.nameArray = @[@"创建群组", @"帮助", @"切换账号"];
 }
 
 - (void)createTableView {
@@ -196,8 +188,6 @@ UINavigationControllerDelegate
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
     
-    
-    
 }
 //PickerImage完成后的代理方法
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
@@ -246,7 +236,7 @@ UINavigationControllerDelegate
             [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {
                     // 存储成功
-                    NSLog(@"上传成功");
+//                    NSLog(@"上传成功");
                     [[FZY_DataHandle shareDatahandle] inset:[[EMClient sharedClient] currentUsername] imageUrl:file.url userId:userPhoto.objectId];
                     [TSMessage showNotificationWithTitle:@"Success" subtitle:@"上传成功" type:TSMessageNotificationTypeSuccess];
                     [self.activityIndicatorView stopAnimating];
@@ -289,7 +279,7 @@ UINavigationControllerDelegate
 
             [self presentViewController:helpViewControllView animated:YES completion:nil];
             
-            NSLog(@"你点击了help");
+//            NSLog(@"你点击了help");
             break;
         }
         case 2:{

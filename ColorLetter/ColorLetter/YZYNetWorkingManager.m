@@ -45,9 +45,9 @@
 + (void)POST:(NSString *)string Dic:(NSDictionary *)dic success:(void (^)(id))success failure:(void (^)(NSError *))failure  {
     if (0 == dic.count) {
         [YZYNetWorkingManager GET:string success:^(id result) {
-            NSLog(@"%@", result);
+//            NSLog(@"%@", result);
         } failure:^(NSError *error) {
-            NSLog(@"%@", error);
+//            NSLog(@"%@", error);
         }];
     }
     string = [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];

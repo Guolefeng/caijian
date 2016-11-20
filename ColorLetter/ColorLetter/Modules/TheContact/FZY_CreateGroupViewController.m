@@ -81,13 +81,13 @@ FZY_FriendsListViewControllerDelegate
     if (setting.maxUsersCount <= 2000) {
         EMGroup *group = [[EMClient sharedClient].groupManager createGroupWithSubject:self.groupName.text description:self.groupDescription.text invitees:self.groupMembersArray message:@"邀请您加入群组" setting:setting error:&error];
         if (!error) {
-            NSLog(@"创建成功--- %@", group);
+//            NSLog(@"创建成功--- %@", group);
             [TSMessage showNotificationWithTitle:@"Success" subtitle:[NSString stringWithFormat:@"%@创建成功", _groupName.text] type:TSMessageNotificationTypeSuccess];
             
             [self.delegate insertNewGroupToTableViewWithName:_groupName.text description:_groupDescription.text];
             
         } else {
-            NSLog(@"创建群组失败--- %@", error);
+//            NSLog(@"创建群组失败--- %@", error);
             [TSMessage showNotificationWithTitle:@"Error" subtitle:[NSString stringWithFormat:@"%@创建失败", _groupName.text] type:TSMessageNotificationTypeError];
         }
     }

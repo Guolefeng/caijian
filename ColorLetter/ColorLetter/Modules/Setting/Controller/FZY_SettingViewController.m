@@ -26,6 +26,8 @@ UITableViewDataSource
 
 @property (nonatomic, strong) NSArray *imageArray;
 
+@property (nonatomic, strong) NSMutableArray *friendsOfBlackList;
+
 @end
 
 @implementation FZY_SettingViewController
@@ -37,19 +39,31 @@ UITableViewDataSource
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-
+    [self getBlackList];
+    [_tableView reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text = @"Setting";
+    self.friendsOfBlackList = [NSMutableArray array];
+    
+    self.titleLabel.text = @"设置";
     [self createTableView];
 
 }
 
+- (void)getBlackList {
+    EMError *error = nil;
+    NSArray *array = [[EMClient sharedClient].contactManager getBlackListFromServerWithError:&error];
+    [self.friendsOfBlackList addObjectsFromArray:array];
+    if (!error) {
+       // NSLog(@"获取好友黑名单成功 -- %@", _friendsOfBlackList);
+    }
+    
+}
+
 - (void)createTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT) style:UITableViewStylePlain];
-    _tableView.scrollEnabled = NO;
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT - 64 - 49) style:UITableViewStylePlain];
     _tableView.separatorStyle = NO;
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -68,44 +82,42 @@ UITableViewDataSource
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (0 == section) {
-        return @"Options";
+        return @"我的彩笺";
+    } else {
+        return @"好友黑名单";
     }
-    return @"ColorLetter";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (0 == section) {
-        return 1;
+        return 2;
+    } else {
+        return _friendsOfBlackList.count;
     }
-    return 2;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FZY_SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (0 == indexPath.section) {
-        FZY_SwitchTableViewCell *cells = [tableView dequeueReusableCellWithIdentifier:IdentifierCell];
         if (0 == indexPath.row) {
-            cells.cellName = @"Notifications";
+            cell.cellName = @"分享";
+        }else if (1 == indexPath.row) {
+            cell.cellName = @"清楚缓存";
         }
-        cells.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cells;
-    }else {
-        if (0 == indexPath.row){
-            cell.cellName = @"Share";
-        }else if (1 == indexPath.row){
-            cell.cellName = @"Clear Cache";
+    } else {
+        if (_friendsOfBlackList.count) {
+            cell.cellName = _friendsOfBlackList[indexPath.row];
         }
     }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (0 == indexPath.section) {
         if (0 == indexPath.row) {
-            
-        }
-    }else if (1 == indexPath.section) {
-         if (0 == indexPath.row) {
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[@"Share"] applicationActivities:nil];
             // 不能用push
             //    [self.navigationController pushViewController:activityVC animated:YES];
@@ -115,13 +127,13 @@ UITableViewDataSource
         }else if (1 == indexPath.row) {
             NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask ,YES) firstObject];
             CGFloat cacheSize = [self folderSizeAtPath:cachePath];
-            UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Sure to remove%.2fMcache?", cacheSize] message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定要清除%.2fM缓存?", cacheSize] message:nil preferredStyle:UIAlertControllerStyleAlert];
             //创建一个取消和一个确定按钮
-            UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
-            UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"嗯呐" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 [self clearCache:cachePath];
-                [UIView showMessage:@"Clear success"];
+                [UIView showMessage:@"清除成功"];
             }];
             //将取消和确定按钮添加进弹框控制器
             [alert addAction:actionCancle];
@@ -129,10 +141,33 @@ UITableViewDataSource
             
             //显示弹框控制器
             [self presentViewController:alert animated:YES completion:nil];
-
         }
+    } else {
+        
+        UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定将%@移出黑名单", _friendsOfBlackList[indexPath.row]] message:nil preferredStyle:UIAlertControllerStyleAlert];
+        //创建一个取消和一个确定按钮
+        UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"呆着吧" style:UIAlertActionStyleCancel handler:nil];
+        //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"嗯呐" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+
+            // 移除黑名单
+            EMError *error = [[EMClient sharedClient].contactManager removeUserFromBlackList:_friendsOfBlackList[indexPath.row]];
+            if (!error) {
+                [UIView showMessage:@"移出成功"];
+            } else {
+                [UIView showMessage:@"移出失败, 请再试一次"];
+            }
+            [_friendsOfBlackList removeObjectAtIndex:indexPath.row];
+            [_tableView reloadData];
+            
+        }];
+        //将取消和确定按钮添加进弹框控制器
+        [alert addAction:actionCancle];
+        [alert addAction:actionOk];
+        //显示弹框控制器
+        [self presentViewController:alert animated:YES completion:nil];
+        
     }
-    
     
 }
 

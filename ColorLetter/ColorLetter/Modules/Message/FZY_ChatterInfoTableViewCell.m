@@ -38,16 +38,16 @@
 
 - (void)switchChange:(UISwitch *)switchValue {
     if (switchValue.on) {
-        NSLog(@"加入黑名单");
+//        NSLog(@"加入黑名单");
         EMError *error = [[EMClient sharedClient].contactManager addUserToBlackList:_blackList relationshipBoth:YES];
         if (!error) {
-            NSLog(@"发送成功");
+//            NSLog(@"发送成功");
         }
     } else {
-        NSLog(@"取消黑名单");
+//        NSLog(@"取消黑名单");
         EMError *error = [[EMClient sharedClient].contactManager removeUserFromBlackList:_blackList];
         if (!error) {
-            NSLog(@"发送成功");
+//            NSLog(@"发送成功");
         }
     }
 }

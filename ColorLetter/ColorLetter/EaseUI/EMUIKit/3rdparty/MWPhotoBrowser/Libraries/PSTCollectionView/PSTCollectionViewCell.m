@@ -180,7 +180,7 @@
 }
 
 - (void)menuGesture:(UILongPressGestureRecognizer *)recognizer {
-    NSLog(@"Not yet implemented: %@", NSStringFromSelector(_cmd));
+//    NSLog(@"Not yet implemented: %@", NSStringFromSelector(_cmd));
 }
 
 - (void)setBackgroundView:(UIView *)backgroundView {

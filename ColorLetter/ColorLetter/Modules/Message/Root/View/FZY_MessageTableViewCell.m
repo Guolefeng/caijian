@@ -61,8 +61,12 @@
         if (model.isGroup) {
             _nameLabel.text = model.groupID;
             _headImageView.image = [UIImage imageNamed:@"bg-mob"];
+            _headImageView.layer.cornerRadius = 10;
+            _headImageView.layer.masksToBounds = YES;
         } else {
             _nameLabel.text = model.name;
+            _headImageView.layer.cornerRadius = 35;
+            _headImageView.layer.masksToBounds = YES;
         }
         
         _timeLabel.text = [NSData intervalSinceNow:model.time];
@@ -103,7 +107,6 @@
             [_unReadMessageLabel removeFromSuperview];
         }
     }
-    
 }
 
 - (void)layoutSubviews {
@@ -116,14 +119,10 @@
         make.left.equalTo(self.contentView).offset(10);
         make.top.equalTo(self.contentView).offset(15);
     }];
-    
-    _headImageView.layer.cornerRadius = 35;
-    _headImageView.layer.masksToBounds = YES;
 
-    
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_headImageView.mas_right).offset(10);
-        make.width.equalTo(@(self.contentView.frame.size.width / 2));
+        make.width.equalTo(@(self.contentView.frame.size.width / 2 - 30));
         make.top.equalTo(self.contentView).offset(5);
         make.height.equalTo(@(h / 2 - 10));
     }];

@@ -95,7 +95,7 @@ UITextFieldDelegate
     _textField.backgroundColor = [UIColor lightGrayColor];
     _textField.alpha = 0.7;
     _textField.clearButtonMode = UITextFieldViewModeAlways;
-    _textField.placeholder = @"Please enter a user name to add";
+    _textField.placeholder = @"请输入好友 ID 以添加好友";
     [_textField setValue:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     [backgroudImageView addSubview:_textField];
     
@@ -107,7 +107,7 @@ UITextFieldDelegate
     _groupTextField.leftViewMode = UITextFieldViewModeAlways;
     _groupTextField.backgroundColor = [UIColor lightGrayColor];
     _groupTextField.clearButtonMode = UITextFieldViewModeAlways;
-    _groupTextField.placeholder = @"Please enter the group ID to add";
+    _groupTextField.placeholder = @"请输入群组 ID 以加入群";
     [_groupTextField setValue:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     [backgroudImageView addSubview:_groupTextField];
     
@@ -179,30 +179,30 @@ UITextFieldDelegate
         
         NSString *loginUsername = [[EMClient sharedClient] currentUsername];
         if ([searchString isEqualToString:loginUsername]) {
-            [TSMessage showNotificationWithTitle:@"warning" subtitle:@"can't add yourself as a friend" type:TSMessageNotificationTypeError];
+            [TSMessage showNotificationWithTitle:@"警告" subtitle:@"不能添加自己为好友" type:TSMessageNotificationTypeError];
             return YES;
         }
         for (NSString *string in _array) {
             if ([searchString isEqualToString:string]) {
-                [TSMessage showNotificationWithTitle:[NSString stringWithFormat:@"%@is your friend already", searchString] subtitle:[NSString stringWithFormat:@"%@ is already a good friend of yours.", searchString] type:TSMessageNotificationTypeError];
+                [TSMessage showNotificationWithTitle:[NSString stringWithFormat:@"%@已经是你的好基友了", searchString] subtitle:[NSString stringWithFormat:@"%@ 无需重新添加", searchString] type:TSMessageNotificationTypeError];
                 return YES;
             }
         }
         
-        UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Sure to add %@ as a friend?", searchString] message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定添加 %@ as a friend?", searchString] message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alert addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            textField.placeholder = @"Say something";
+            textField.placeholder = @"说点什么吧...";
         }];
         //创建一个取消和一个确定按钮
         UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"cancl" style:UIAlertActionStyleCancel handler:nil];
         //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
-        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"嗯呐" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             UITextField *textField = alert.textFields.firstObject;
             EMError *error = [[EMClient sharedClient].contactManager addContact:searchString message:[NSString stringWithFormat:@"%@", textField.text]];
             if (!error) {
-                [UIView showMessage:@"Wait for the other person to accept your request"];
+                [UIView showMessage:@"等待对方接受你的请求"];
             }else {
-                [UIView showMessage:@"Add failure"];
+                [UIView showMessage:@"发送失败, 请再试一次."];
             }
         }];
         //将取消和确定按钮添加进弹框控制器
@@ -213,23 +213,23 @@ UITextFieldDelegate
     }
     else if (textField == _groupTextField) {
         
-        UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Sure to join %@ group?", searchString] message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定加入 %@ 群?", searchString] message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alert addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            textField.placeholder = @"Say something";
+            textField.placeholder = @"说点什么吧...";
         }];
         //创建一个取消和一个确定按钮
         UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
         //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
-        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"嗯呐" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
             UITextField *textField = alert.textFields.firstObject;
             
             EMError *error = nil;
             [[EMClient sharedClient].groupManager applyJoinPublicGroup:searchString message:[NSString stringWithFormat:@"%@", textField.text] error:&error];
             if (!error) {
-                [UIView showMessage:@"Wait for him to accept your request"];
+                [UIView showMessage:@"等待群主接受你的请求"];
             } else {
-                [UIView showMessage:@"Add failure"];
+                [UIView showMessage:@"发送失败, 请再试一次"];
             }
             
         }];

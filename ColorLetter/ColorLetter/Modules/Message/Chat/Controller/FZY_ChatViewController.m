@@ -68,6 +68,7 @@ BMKMapViewDelegate
 @property (nonatomic, copy) NSString *userImage;
 
 @property (nonatomic, copy) NSString *friendImage;
+@property (nonatomic, assign) BOOL isMapClose;
 
 @end
 
@@ -84,7 +85,6 @@ BMKMapViewDelegate
     //移除消息回调
     [[EMClient sharedClient].chatManager removeDelegate:self];
 }
-
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -149,6 +149,8 @@ BMKMapViewDelegate
     _locService.delegate = (id)self;
     //启动LocationService
     [_locService startUserLocationService];
+    
+    self.isMapClose = YES;
     
     self.mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
     _mapView.mapType = BMKMapTypeStandard;
@@ -228,7 +230,7 @@ BMKMapViewDelegate
     [_conversation loadMessagesStartFromId:nil count:20 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
         
         if (!aError) {
-            NSLog(@"载入历史消息成功");
+//            NSLog(@"载入历史消息成功");
             
             if (aMessages.count) {
                 
@@ -240,7 +242,7 @@ BMKMapViewDelegate
                     switch (msgBody.type) {
                         case EMMessageBodyTypeText:
                         {
-                            NSLog(@"文字");
+//                            NSLog(@"文字");
                             EMTextMessageBody *textBody = (EMTextMessageBody *)msgBody;
                             
                             NSString *txt = textBody.text;
@@ -267,7 +269,7 @@ BMKMapViewDelegate
                             break;
                         case EMMessageBodyTypeImage:
                         {
-                            NSLog(@"图片");
+//                            NSLog(@"图片");
                             EMImageMessageBody *imageBody = (EMImageMessageBody *)msgBody;
                             model.photoName = imageBody.remotePath;
                             if ([mes.from isEqualToString:userName]) {
@@ -291,7 +293,7 @@ BMKMapViewDelegate
                             break;
                         case EMMessageBodyTypeVoice:
                         {
-                            NSLog(@"语音");
+//                            NSLog(@"语音");
                             EMVoiceMessageBody *body = ((EMVoiceMessageBody *)msgBody);
                             
                             model.fromUser = mes.from;
@@ -329,7 +331,7 @@ BMKMapViewDelegate
             }
             
         } else {
-            NSLog(@"载入历史消息失败 : %@", aError);
+//            NSLog(@"载入历史消息失败 : %@", aError);
         }
         
     }];
@@ -484,7 +486,7 @@ BMKMapViewDelegate
                     break;
                 case EMMessageBodyTypeVoice:
                 {
-                    NSLog(@"发送语音消息");
+//                    NSLog(@"发送语音消息");
                     EMVoiceMessageBody *body = ((EMVoiceMessageBody *)msgBody);
                     model.fromUser = message.from;
                     model.remoteVoicePath = body.remotePath;
@@ -505,7 +507,7 @@ BMKMapViewDelegate
                     break;
                 case EMMessageBodyTypeCmd:
                 {
-                    NSLog(@"发送 cmd 消息");
+//                    NSLog(@"发送 cmd 消息");
                     
                 }
                     break;
@@ -514,7 +516,7 @@ BMKMapViewDelegate
             }
             
         } else {
-            NSLog(@"发送失败: %@", error.errorDescription);
+//            NSLog(@"发送失败: %@", error.errorDescription);
         }
         
         [_importTextField setText:nil];
@@ -667,7 +669,7 @@ BMKMapViewDelegate
 - (void)beginConvert {
     Mp3Recorder *mp3 = [[Mp3Recorder alloc] init];
     NSString *mp3Path = [mp3 mp3Path];
-    NSLog(@"结束录音 ======= %@", mp3Path);
+//    NSLog(@"结束录音 ======= %@", mp3Path);
     [self sendVoice:mp3Path];
 
 }
@@ -795,32 +797,44 @@ BMKMapViewDelegate
     switch (indexPath.item) {
         case 0:
         {
-            NSLog(@"图片");
-            UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-            PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            //自代理
-            PickerImage.delegate = self;
-            PickerImage.allowsEditing = YES;
-            //页面跳转
-            [self presentViewController:PickerImage animated:YES completion:nil];
+            if (_isMapClose) {
+//                NSLog(@"图片");
+                UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+                PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                //自代理
+                PickerImage.delegate = self;
+                PickerImage.allowsEditing = YES;
+                //页面跳转
+                [self presentViewController:PickerImage animated:YES completion:nil];
+            } else {
+                [UIView showMessage:@"地图打开中, 无法发送图片"];
+            }
+            
             
         }
             break;
         case 1:
         {
-            NSLog(@"相机");
-            UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-            //获取方式:通过相机
-            PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
-            PickerImage.allowsEditing = YES;
-            PickerImage.delegate = self;
-            [self presentViewController:PickerImage animated:YES completion:nil];
+            if (_isMapClose) {
+//                NSLog(@"相机");
+                UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+                //获取方式:通过相机
+                PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
+                PickerImage.allowsEditing = YES;
+                PickerImage.delegate = self;
+                [self presentViewController:PickerImage animated:YES completion:nil];
+            } else {
+                [UIView showMessage:@"地图打开中, 无法使用相机"];
+            }
+            
         }
             break;
         case 2:
         {
-            NSLog(@"位置");
+            self.isMapClose = !_isMapClose;
+          
             _tableView.hidden = !_tableView.hidden;
+            _downView.hidden = !_downView.hidden;
             
                 EMLocationMessageBody *body = [[EMLocationMessageBody alloc] initWithLatitude:_latitude longitude:_longitude address:@"地址"];
                 NSString *from = [[EMClient sharedClient] currentUsername];
@@ -836,32 +850,37 @@ BMKMapViewDelegate
                 [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
                     if (!error) {
             
-                        NSLog(@"位置发送成功");
+//                        NSLog(@"位置发送成功");
                     } else {
-                        NSLog(@"发送失败: %@", error);
+//                        NSLog(@"发送失败: %@", error);
                     }
                 }];
         }
             break;
         case 3:
         {
-            NSLog(@"视频");
-            if ([self canOpenCamera]) {
-                if (_isGroupChat) {
-                    [TSMessage showNotificationWithTitle:@"视屏通话失败" subtitle:@"群聊时无法视屏通话" type:TSMessageNotificationTypeError];
+            if (_isMapClose) {
+//                NSLog(@"视频");
+                if ([self canOpenCamera]) {
+                    if (_isGroupChat) {
+                        [TSMessage showNotificationWithTitle:@"视屏通话失败" subtitle:@"群聊时无法视屏通话" type:TSMessageNotificationTypeError];
+                    } else {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
+                    }
+                    
                 } else {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"没有相机权限" message:@"请去设置-隐私-相机中进行授权" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }];
+                    [alertController addAction:okAction];
+                    [self presentViewController:alertController animated:YES completion:nil];
                 }
-               
             } else {
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"没有相机权限" message:@"请去设置-隐私-相机中进行授权" preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [self.navigationController popViewControllerAnimated:YES];
-                }];
-                [alertController addAction:okAction];
-                [self presentViewController:alertController animated:YES completion:nil];
+                [UIView showMessage:@"地图打开中, 无法视屏通话"];
             }
+           
             
         }
             break;
@@ -968,6 +987,7 @@ BMKMapViewDelegate
 
 #pragma mark - TextViewDelegate
 - (void)textViewDidBeginEditing:(UITextView *)textView {
+    
     // 构造透传消息
     EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:@"对方正在输入..."];
     NSString *from = [[EMClient sharedClient] currentUsername];
@@ -981,7 +1001,7 @@ BMKMapViewDelegate
     [self sendMessageWithEMMessage:message];
 }
 - (void)textViewDidEndEditing:(UITextView *)textView {
-    NSLog(@"end");
+//    NSLog(@"end");
     // 构造透传消息
     EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:@"end"];
     NSDictionary *dic = @{@"name" : @"end"};

@@ -64,12 +64,12 @@
     removeBtn.tag = RemoveBtn_tag;      //注意这里的tag
     
     //***********************这里面可以自定义*******************************//
-    CGFloat btnW = 128;
+    CGFloat btnW = 200;
     CGFloat btnH = 35;
     CGFloat btnX = CGRectGetMidX(self.view.frame) - btnW / 2;
     CGFloat btnY = CGRectGetMaxY(self.view.frame) * 0.83;
     removeBtn.frame = CGRectMake(btnX, btnY, btnW, btnH);
-    
+    removeBtn.backgroundColor = [UIColor colorWithRed:0.59 green:0.35 blue:0.24 alpha:0.5];
     removeBtn.layer.cornerRadius = 4;
     removeBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     removeBtn.layer.borderWidth = 1.;

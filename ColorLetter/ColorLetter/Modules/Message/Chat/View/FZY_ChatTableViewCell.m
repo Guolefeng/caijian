@@ -532,11 +532,11 @@
 -(void)sensorStateChange:(NSNotificationCenter *)notification;
 {
     if ([[UIDevice currentDevice] proximityState] == YES){
-        NSLog(@"Device is close to user");
+//        NSLog(@"Device is close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     }
     else{
-        NSLog(@"Device is not close to user");
+//        NSLog(@"Device is not close to user");
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
     }
 }
@@ -551,7 +551,7 @@
         [_audioPlayer stop];
     }
         if (error) {
-            NSLog(@"error : %@", error);
+//            NSLog(@"error : %@", error);
         }
         [self.audioPlayer setVolume:1];
         // 设置循环播放 0 -> 语音只会播放一次

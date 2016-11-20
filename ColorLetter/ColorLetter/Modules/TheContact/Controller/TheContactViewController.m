@@ -152,7 +152,7 @@ FZY_CreateGroupViewControllerDelegate
 - (void)didReceiveJoinGroupApplication:(EMGroup *)aGroup
                              applicant:(NSString *)aApplicant
                                 reason:(NSString *)aReason {
-    NSLog(@"%@", aApplicant);
+//    NSLog(@"%@", aApplicant);
     [TSMessage showNotificationWithTitle:[NSString stringWithFormat:@"%@想要加入您的群", aApplicant] subtitle:aReason type:TSMessageNotificationTypeWarning];
 }
 
@@ -241,7 +241,7 @@ FZY_CreateGroupViewControllerDelegate
     [_upView addSubview:_sliderScrollView];
     
     self.friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_friendsButton setTitle:@"Friends" forState:UIControlStateNormal];
+    [_friendsButton setTitle:@"好友" forState:UIControlStateNormal];
     [_friendsButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [_friendsButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [UIView animateWithDuration:0.2 animations:^{
@@ -257,7 +257,7 @@ FZY_CreateGroupViewControllerDelegate
     }];
     
     self.groupButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_groupButton setTitle:@"Group" forState:UIControlStateNormal];
+    [_groupButton setTitle:@"群组" forState:UIControlStateNormal];
     [_groupButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [_groupButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [UIView animateWithDuration:0.2 animations:^{
@@ -457,14 +457,14 @@ FZY_CreateGroupViewControllerDelegate
             UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             EMError *error = [[EMClient sharedClient].contactManager declineInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
             if (!error) {
-                NSLog(@"拒绝成功");
+//                NSLog(@"拒绝成功");
                 [_friendRequest removeObjectAtIndex:indexPath.row];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
                 [_leftTabeleView reloadData];
             }
         }];
         //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
-        UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"必须滴" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
             if (!error) {
                 [TSMessage showNotificationWithTitle:@"Success" subtitle:@"添加成功" type:TSMessageNotificationTypeSuccess];
@@ -501,7 +501,7 @@ FZY_CreateGroupViewControllerDelegate
             //创建一个取消和一个确定按钮
             UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     
-            [[EMClient sharedClient].groupManager declineGroupInvitation:fzy.aGroupId inviter:fzy.aInviter reason:@"不不" completion:^(EMError *aError) {
+            [[EMClient sharedClient].groupManager declineGroupInvitation:fzy.aGroupId inviter:fzy.aInviter reason:@"不不不" completion:^(EMError *aError) {
                     if (!aError) {
                             
                         [TSMessage showNotificationWithTitle:@"Success" subtitle:@"拒绝成功" type:TSMessageNotificationTypeSuccess];
@@ -566,9 +566,9 @@ FZY_CreateGroupViewControllerDelegate
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
         if (0 == section) {
-            [sectionButton setTitle:@"Requests" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"好友请求列表" forState:UIControlStateNormal];
         }else {
-            [sectionButton setTitle:@"List" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"好友列表" forState:UIControlStateNormal];
             [sectionButton addTarget:self action:@selector(LeftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
@@ -579,9 +579,9 @@ FZY_CreateGroupViewControllerDelegate
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
        if (0 == section) {
-            [sectionButton setTitle:@"Requests" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"群组请求列表" forState:UIControlStateNormal];
         } else {
-            [sectionButton setTitle:@"List" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"群组列表" forState:UIControlStateNormal];
             [sectionButton addTarget:self action:@selector(groupListButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];

@@ -30,7 +30,7 @@ EMClientDelegate
     // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
     BOOL ret = [_mapManager start:@"sc1mRQSAtnTTYMWmRQMLdZd7MKEvZrvG"  generalDelegate:nil];
     if (!ret) {
-        NSLog(@"manager start failed!");
+//        NSLog(@"manager start failed!");
     }
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -66,15 +66,15 @@ EMClientDelegate
         [notificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
             // 授权成功
             if (granted) {
-                NSLog(@"授权成功");
+//                NSLog(@"授权成功");
                 
                 // 查看用了哪些通知的设备 (可写可不写)
                 [notificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                    NSLog(@"settings : %@", settings);
+//                    NSLog(@"settings : %@", settings);
                 }];
                 
             } else {
-                NSLog(@"授权失败 , Authorization error : %@", error);
+//                NSLog(@"授权失败 , Authorization error : %@", error);
             }
         }];
         
@@ -132,7 +132,7 @@ EMClientDelegate
 
 // 注册deviceToken失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    NSLog(@"register error :%@", error);
+//    NSLog(@"register error :%@", error);
 }
 
 /*
@@ -174,7 +174,7 @@ EMClientDelegate
  *  当前登录账号已经被从服务器端删除时会收到该回调
  */
 - (void)didRemovedFromServer {
-    NSLog(@"sddasff");
+//    NSLog(@"sddasff");
     self.window.rootViewController = [[FZY_LoginAndRegisterViewController alloc] init];
     [TSMessage showNotificationWithTitle:@"Warning" subtitle:@"该账号已被从服务器端删除" type:TSMessageNotificationTypeWarning];
 

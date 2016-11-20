@@ -37,14 +37,14 @@
     self.myQueue = [FMDatabaseQueue databaseQueueWithPath:fileName];
     [_myQueue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
-            NSLog(@"打开成功");
+//            NSLog(@"打开成功");
             if ([db executeUpdate:@"create table if not exists user (user_id integer primary key autoincrement, name text NOT NULL, imageUrl text, userId text NOT NULL)"]) {
-                NSLog(@"创建成功");
+//                NSLog(@"创建成功");
             }else {
-                NSLog(@"创建失败");
+//                NSLog(@"创建失败");
             }
         }else {
-            NSLog(@"打开失败");
+//            NSLog(@"打开失败");
         }
     }];
 }

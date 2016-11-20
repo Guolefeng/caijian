@@ -40,7 +40,7 @@
     // app 介绍
     UILabel *bottomLabel = [[UILabel alloc] init];
    // bottomLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
-    bottomLabel.text = @"Communication to improve life";
+    bottomLabel.text = @"欲寄彩笺兼尺素";
     
     bottomLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:bottomLabel];
@@ -54,7 +54,7 @@
     
     UILabel *bottomLabel2 = [[UILabel alloc] init];
   // bottomLabel2.font = [UIFont fontWithName:@"Helvetica" size:15];
-    bottomLabel2.text = @"Communications era of change";
+    bottomLabel2.text = @"山长水阔知何处";
     bottomLabel2.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:bottomLabel2];
     [bottomLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,25 +64,12 @@
        make.height.equalTo(@(HEIGHT * 0.5 * 0.2));
     }];
     
-    //copyright
-    UILabel *bottomLabel3 = [[UILabel alloc] init];
-    bottomLabel3.font = [UIFont fontWithName:@"Helvetica" size:10];
-    bottomLabel3.text = @"＊Copyright and ownership are owned by the FZY team＊";
-    bottomLabel3.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:bottomLabel3];
-    [bottomLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_bottom).offset(-50);
-        make.left.equalTo(self.view).offset(10);
-        make.right.equalTo(self.view).offset(-10);
-        make.height.equalTo(@(HEIGHT * 0.5 * 0.2));
-    }];
-    
     // 注册button
     UIButton *registerButton = [[UIButton alloc]init];
     registerButton.layer.cornerRadius = 15;
     registerButton.backgroundColor = [UIColor colorWithRed:0.26f green:0.55f blue:0.82f alpha:1.00f];
     registerButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:22];
-    [registerButton setTitle:@"Sign up" forState:UIControlStateNormal];
+    [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     __weak typeof(self) weakself = self;
@@ -107,7 +94,7 @@
      loginButton.layer.cornerRadius = 15;
     loginButton.backgroundColor = [UIColor colorWithRed:0.32 green:0.78 blue:0.48 alpha:1.0];
     loginButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:22];
-    [loginButton setTitle:@"Log in" forState:UIControlStateNormal];
+    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal]; 
     
     [loginButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{

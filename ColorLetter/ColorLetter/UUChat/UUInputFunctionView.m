@@ -143,7 +143,7 @@
 
 //回调录音资料
 - (void)endConvertWithData:(NSData *)voiceData {
-    NSLog(@"voice: %@", voiceData);
+//    NSLog(@"voice: %@", voiceData);
     
     [self.delegate UUInputFunctionView:self sendVoice:voiceData time:playTime+1];
     [UUProgressHUD dismissWithSuccess:@"Success"];
@@ -169,6 +169,7 @@
 //改变输入与录音状态
 - (void)voiceRecord:(UIButton *)sender
 {
+   
     self.btnVoiceRecord.hidden = !self.btnVoiceRecord.hidden;
     self.TextViewInput.hidden  = !self.TextViewInput.hidden;
     isbeginVoiceRecord = !isbeginVoiceRecord;
