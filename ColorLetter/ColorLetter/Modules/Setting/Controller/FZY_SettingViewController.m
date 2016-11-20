@@ -102,7 +102,7 @@ UITableViewDataSource
         if (0 == indexPath.row) {
             cell.cellName = @"分享";
         }else if (1 == indexPath.row) {
-            cell.cellName = @"清楚缓存";
+            cell.cellName = @"清除缓存";
         }
     } else {
         if (_friendsOfBlackList.count) {

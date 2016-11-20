@@ -68,6 +68,7 @@ BMKMapViewDelegate
 @property (nonatomic, copy) NSString *userImage;
 
 @property (nonatomic, copy) NSString *friendImage;
+
 @property (nonatomic, assign) BOOL isMapClose;
 
 @end
@@ -138,7 +139,12 @@ BMKMapViewDelegate
     self.view.backgroundColor = [UIColor whiteColor];
     [self createRightItem];
     
-    self.title = _friendName;
+    if (_isGroupChat) {
+        self.title = [NSString stringWithFormat:@"%@", _friendName];
+    } else {
+        self.title = [NSString stringWithFormat:@"%@", _friendName];
+    }
+    
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     
     self.navigationController.navigationBar.translucent = NO;
@@ -188,7 +194,11 @@ BMKMapViewDelegate
 }
 - (void)rightBarAction {
     FZY_ChatterInfoViewController *chatterInfoVC = [[FZY_ChatterInfoViewController alloc] init];
-    chatterInfoVC.friendImage  =_friendImage;
+    if (_isGroupChat) {
+        chatterInfoVC.friendImage = @"bg-mob";
+    } else {
+        chatterInfoVC.friendImage = _friendImage;
+    }
     chatterInfoVC.friendName = _friendName;
     [self.navigationController pushViewController:chatterInfoVC animated:YES];
     
@@ -207,7 +217,6 @@ BMKMapViewDelegate
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
-//    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_mapView updateLocationData:userLocation];
     _latitude = userLocation.location.coordinate.latitude;
     _longitude = userLocation.location.coordinate.longitude;
@@ -331,7 +340,7 @@ BMKMapViewDelegate
             }
             
         } else {
-//            NSLog(@"载入历史消息失败 : %@", aError);
+            [UIView showMessage:@"载入历史消息失败"];
         }
         
     }];
@@ -440,6 +449,7 @@ BMKMapViewDelegate
         }
 
 }
+
 
 #pragma mark - 发送消息
 - (void)sendMessageWithEMMessage:(EMMessage *)message {
@@ -654,9 +664,6 @@ BMKMapViewDelegate
 //回调录音资料
 - (void)endConvertWithData:(NSData *)voiceData
 {
-//    [self.delegate UUInputFunctionView:self sendVoice:voiceData time:playTime+1];
-    
-    
     [UUProgressHUD dismissWithSuccess:@"Success"];
     
     //缓冲消失时间 (最好有block回调消失完成)

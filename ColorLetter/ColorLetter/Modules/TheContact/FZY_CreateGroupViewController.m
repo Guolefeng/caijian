@@ -28,6 +28,9 @@ FZY_FriendsListViewControllerDelegate
     
     [self backButton];
     [self completeButton];
+    // 添加手势收起键盘
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
+    [self.view addGestureRecognizer:tap];
 }
 #pragma mark - 返回按钮
 - (void)backButton {
@@ -104,7 +107,6 @@ FZY_FriendsListViewControllerDelegate
 
 - (void)getInvitedFriendsName:(NSMutableArray *)array {
     self.groupMembersArray = array;
-    NSLog(@"%@", _groupMembersArray);
 }
 
 - (void)screenTap:(UIGestureRecognizer *)tap {

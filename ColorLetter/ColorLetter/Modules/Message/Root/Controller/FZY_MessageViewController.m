@@ -15,8 +15,7 @@
 <
 UITableViewDataSource,
 UITableViewDelegate,
-EMChatManagerDelegate,
-FZYBaseViewControllerDelegate
+EMChatManagerDelegate
 >
 
 {
@@ -43,11 +42,6 @@ FZYBaseViewControllerDelegate
     
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-     [super viewWillDisappear:animated];
-    [[EMClient sharedClient].chatManager removeDelegate:self];
-
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
@@ -85,7 +79,6 @@ FZYBaseViewControllerDelegate
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
-//    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     self.latitude = userLocation.location.coordinate.latitude;
     self.longitude = userLocation.location.coordinate.longitude;
 }
@@ -93,7 +86,9 @@ FZYBaseViewControllerDelegate
 #pragma mark - 获取全部会话
 - (void)loadAllConversations {
     
-    [_conversationArray removeAllObjects];
+    if (_conversationArray.count > 0 ) {
+        [_conversationArray removeAllObjects];
+    }
     
     NSArray *conversationArray = [[EMClient sharedClient].chatManager getAllConversations];
         
@@ -176,7 +171,6 @@ FZYBaseViewControllerDelegate
     
     for (FZY_User *user in _objectArray) {
         if (model.name == user.name) {
-//            self.user = user;
             cell.urlImage = user.imageUrl;
         }
     }

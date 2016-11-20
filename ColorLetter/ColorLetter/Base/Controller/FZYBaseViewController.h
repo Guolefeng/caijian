@@ -9,15 +9,8 @@
 #import <UIKit/UIKit.h>
 @class DrawerViewController;
 
-@protocol FZYBaseViewControllerDelegate <NSObject>
-
-- (void)refreshTableView;
-
-@end
 
 @interface FZYBaseViewController : UIViewController
-
-@property (nonatomic, strong) id<FZYBaseViewControllerDelegate>delegate;
 
 @property (nonatomic, strong) UIButton *drawerButton;
 
