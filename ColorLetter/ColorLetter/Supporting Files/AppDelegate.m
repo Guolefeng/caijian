@@ -37,50 +37,41 @@ EMClientDelegate
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#colorletter"];
+    EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#fzycolorletter"];
     options.apnsCertName = @"ColorLetter";
-    
     // 自动添加成员进群
     options.isAutoAcceptGroupInvitation = YES;
-    
     self.error = [[EMClient sharedClient] initializeSDKWithOptions:options];
     if (!_error) {
         NSLog(@"初始化成功");
     }
     
+    
     //------- 注册 APNS --------
     if ([[UIDevice currentDevice] systemVersion].floatValue < 8.0f) {
-        // iOS 8.0 之前
         [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
-        
-    } else if (([[UIDevice currentDevice] systemVersion].floatValue) >= 8.0f && ([UIDevice currentDevice].systemVersion.floatValue < 10.0f)) {
-        
-        // iOS 8.0 ~ iOS 10.0
-        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil]]; // categories 通知的不同的分类
-        // 注册远程通知 (请求 token)
+    }else if (([[UIDevice currentDevice] systemVersion].floatValue >= 8.0f) && ([[UIDevice currentDevice] systemVersion].floatValue < 10.0f)) {
+        // 注册通知设置
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil]];
+        // 注册远程通知 (请求token)
         [application registerForRemoteNotifications];
-        
-    } else {
-        // iOS 10.0
-         UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+    }else {
+        UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
         [notificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
             // 授权成功
             if (granted) {
-//                NSLog(@"授权成功");
-                
-                // 查看用了哪些通知的设备 (可写可不写)
+                NSLog(@"成功");
                 [notificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-//                    NSLog(@"settings : %@", settings);
+                    NSLog(@"setting : %@", settings);
                 }];
-                
-            } else {
-//                NSLog(@"授权失败 , Authorization error : %@", error);
+            }else {
+                NSLog(@"Authorization error : %@",error);
             }
         }];
-        
         [application registerForRemoteNotifications];
         
     }
+
     // ------------------------
     
     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
@@ -96,7 +87,7 @@ EMClientDelegate
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
     
     // EaseUI 的初始化
-    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#colorletter" apnsCertName:@"ColorLetter" otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#fzycolorletter" apnsCertName:@"ColorLetter" otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
     // LeanCloud 的初始化
     [AVOSCloud setApplicationId:@"TqOSFbfozHvy7bvJsvRb5iUo-gzGzoHsz" clientKey:@"BVsKxayJdjhnXBz1fXjE4FOp"];
@@ -124,15 +115,30 @@ EMClientDelegate
 
 }
 
-// 将得到的deviceToken传给SDK
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+// 获取token
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"token : %@", deviceToken);
     [[EMClient sharedClient] bindDeviceToken:deviceToken];
+    // 将token提供给推送服务器
+}
+
+// 注册通知失败
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"register error :%@", error);
+}
+
+// 接收(触发)通知的方法 iOS 10.0之前
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"userInfo : %@", userInfo);
     
 }
 
-// 注册deviceToken失败
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-//    NSLog(@"register error :%@", error);
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    
 }
 
 /*
@@ -179,6 +185,8 @@ EMClientDelegate
     [TSMessage showNotificationWithTitle:@"Warning" subtitle:@"该账号已被从服务器端删除" type:TSMessageNotificationTypeWarning];
 
 }
+
+
 
 /*!
  *  SDK连接服务器的状态变化时会接收到该回调
