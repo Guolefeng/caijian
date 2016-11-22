@@ -210,7 +210,7 @@ UITextFieldDelegate
             
             if (_agree) {
                 
-                [self register];
+                [self UserRegister];
                 
             } else {
                 [UIView showMessage:@"请同意服务协议"];
@@ -487,9 +487,9 @@ UITextFieldDelegate
 }
 
 #pragma mark - 注册
-- (void)register {
+- (void)UserRegister {
     if ([_confirmPasswordTextField.text isEqualToString:_passwordTextField.text]) {
-        EMError *error = [[EMClient sharedClient] registerWithUsername:_accountTextField.text password:_passwordTextField.text];
+        EMError *error = [[EMClient sharedClient] registerWithUsername:_accountTextField.text password:[_passwordTextField.text yzy_stringByMD5Bit32]];
 
         if (error == nil) {
             [UIView showMessage:@"注册成功"];
@@ -509,7 +509,7 @@ UITextFieldDelegate
 
 #pragma mark - 登录
 - (void)login {
-    _error = [[EMClient sharedClient] loginWithUsername:_loginAccountTextField.text password:_loginPasswordTextField.text];
+    _error = [[EMClient sharedClient] loginWithUsername:_loginAccountTextField.text password:[_loginPasswordTextField.text yzy_stringByMD5Bit32]];
     
     if (!_error) {
         AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
@@ -554,7 +554,7 @@ UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     if ([textField isEqual:_confirmPasswordTextField]) {
-        [self register];
+        [self UserRegister];
     }
     
     if ([textField isEqual:_loginPasswordTextField]) {
