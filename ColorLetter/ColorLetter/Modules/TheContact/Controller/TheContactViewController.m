@@ -29,8 +29,8 @@ UIScrollViewDelegate,
 UITableViewDataSource,
 UITableViewDelegate,
 UISearchResultsUpdating,
-EMContactManagerDelegate,
-EMGroupManagerDelegate,
+//EMContactManagerDelegate,
+//EMGroupManagerDelegate,
 FZY_CreateGroupViewControllerDelegate
 >
 
@@ -112,11 +112,11 @@ FZY_CreateGroupViewControllerDelegate
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
 
-    //注册好友回调
-    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
-    
-    // 注册群组回调
-    [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:nil];
+//    //注册好友回调
+//    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+//    
+//    // 注册群组回调
+//    [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:nil];
     
     FZY_CreateGroupViewController *createGroupVC = [[FZY_CreateGroupViewController alloc] init];
     createGroupVC.delegate = self;
@@ -178,7 +178,7 @@ FZY_CreateGroupViewControllerDelegate
                           inviter:(NSString *)aInviter
                           message:(NSString *)aMessage {
     
-    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
     NSDictionary *groupDic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aInviter], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage], @"aGroupId" : [NSString stringWithFormat:@"%@", aGroupId]};
     FZY_RequestModel *model = [FZY_RequestModel modelWithDic:groupDic];
     model.isGroup = YES;

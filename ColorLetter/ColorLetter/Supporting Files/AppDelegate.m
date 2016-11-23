@@ -38,12 +38,12 @@ EMClientDelegate
     [self.window makeKeyAndVisible];
     
     EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#fzycolorletter"];
-    options.apnsCertName = @"ColorLetter";
+    options.apnsCertName = @"222";
     // 自动添加成员进群
     options.isAutoAcceptGroupInvitation = YES;
     self.error = [[EMClient sharedClient] initializeSDKWithOptions:options];
     if (!_error) {
-        NSLog(@"初始化成功");
+//        NSLog(@"初始化成功");
     }
     
     
@@ -60,12 +60,12 @@ EMClientDelegate
         [notificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
             // 授权成功
             if (granted) {
-                NSLog(@"成功");
+//                NSLog(@"成功");
                 [notificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                    NSLog(@"setting : %@", settings);
+//                    NSLog(@"setting : %@", settings);
                 }];
             }else {
-                NSLog(@"Authorization error : %@",error);
+//                NSLog(@"Authorization error : %@",error);
             }
         }];
         [application registerForRemoteNotifications];
@@ -87,7 +87,7 @@ EMClientDelegate
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
     
     // EaseUI 的初始化
-    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#fzycolorletter" apnsCertName:@"ColorLetter" otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#fzycolorletter" apnsCertName:@"222" otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
     // LeanCloud 的初始化
     [AVOSCloud setApplicationId:@"TqOSFbfozHvy7bvJsvRb5iUo-gzGzoHsz" clientKey:@"BVsKxayJdjhnXBz1fXjE4FOp"];
@@ -117,19 +117,18 @@ EMClientDelegate
 
 // 获取token
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSLog(@"token : %@", deviceToken);
     [[EMClient sharedClient] bindDeviceToken:deviceToken];
     // 将token提供给推送服务器
 }
 
 // 注册通知失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"register error :%@", error);
+//    NSLog(@"register error :%@", error);
 }
 
 // 接收(触发)通知的方法 iOS 10.0之前
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    NSLog(@"userInfo : %@", userInfo);
+//    NSLog(@"userInfo : %@", userInfo);
     
 }
 

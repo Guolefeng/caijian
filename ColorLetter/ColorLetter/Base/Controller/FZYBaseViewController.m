@@ -16,7 +16,9 @@
 <
 EMCallManagerDelegate,
 ChatDemoHelperDelegate,
-EMChatManagerDelegate
+EMChatManagerDelegate,
+EMContactManagerDelegate,
+EMGroupManagerDelegate
 >
 @end
 
@@ -37,7 +39,13 @@ EMChatManagerDelegate
     
     // 注册实时通话回调
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
-
+    
+    //注册好友回调
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+    
+    // 注册群组回调
+    [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:nil];
+    
 }
 
 - (void)create {
