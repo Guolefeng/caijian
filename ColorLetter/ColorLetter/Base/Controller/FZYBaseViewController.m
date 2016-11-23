@@ -22,7 +22,6 @@ EMChatManagerDelegate
 
 @implementation FZYBaseViewController
 
-
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBar.hidden = YES;
 }

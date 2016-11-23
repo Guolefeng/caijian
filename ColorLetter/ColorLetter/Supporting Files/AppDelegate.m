@@ -37,7 +37,7 @@ EMClientDelegate
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#colorletter"];
+    EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#fzycolorletter"];
     options.apnsCertName = @"ColorLetter";
     
     // 自动添加成员进群
@@ -96,7 +96,7 @@ EMClientDelegate
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
     
     // EaseUI 的初始化
-    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#colorletter" apnsCertName:@"ColorLetter" otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#fzycolorletter" apnsCertName:@"ColorLetter" otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
     // LeanCloud 的初始化
     [AVOSCloud setApplicationId:@"TqOSFbfozHvy7bvJsvRb5iUo-gzGzoHsz" clientKey:@"BVsKxayJdjhnXBz1fXjE4FOp"];
