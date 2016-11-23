@@ -58,7 +58,7 @@ EMChatManagerDelegate
         DrawerViewController *drawerVC = [[DrawerViewController alloc] init];
         drawerVC.myImage = [UIImage captureImageFromView: self.view];
         CATransition * animation = [CATransition animation];
-        animation.duration = 0.3;
+        animation.duration = 0.1;
         animation.type = kCATransitionPush;
         drawerVC.viewController = self;
         drawerVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
